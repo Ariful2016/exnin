@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "591895628076",
+    "project_id": "netschool24-arif",
+    "storage_bucket": "netschool24-arif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591895628076:android:541d0b9215eb400b1b8489",
+        "android_client_info": {
+          "package_name": "com.es.netschool24"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591895628076-aaj2vvodh1j007onvlmv9559afvng50f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTwVaESPooj2L5OR1foI2RHmiL_TZ-viU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591895628076-aaj2vvodh1j007onvlmv9559afvng50f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

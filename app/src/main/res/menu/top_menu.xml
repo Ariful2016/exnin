@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+
+
+
+            <item
+                android:id="@+id/term_condition"
+                android:title="Term and Condition"
+
+                />
+
+            <item
+                android:id="@+id/privacy_policy"
+                android:title="Privacy and Policy"
+
+                />
+            <item
+                android:id="@+id/changePassword"
+                android:title="Change Password"
+
+                />
+
+            <item
+                android:id="@+id/logout"
+                android:title="Logout"
+                />
+
+
+
+
+
+
+
+</menu>

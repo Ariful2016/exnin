@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <TextView
+        android:id="@+id/course_title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kid's Learning"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/purple_700"
+        app:layout_constraintStart_toEndOf="@id/kids_img"
+        app:layout_constraintTop_toTopOf="@id/kids_img"
+        app:layout_constraintBottom_toBottomOf="@id/kids_img"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/kids_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/kidlearning"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/overviewDescription_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Every parent has a dream so that their children are well educated and can improve themselves and achieve their life goals and so that their children can fully develop themselves by realizing the dreams of the parents.\nTo make every parent’s dream come true and create a beautiful future for your child. Our bestupp always works. Our teachers take each class seriously through extraordinary live classes so that your child can learn easily."
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:layout_margin="15dp"
+        android:justificationMode="inter_word"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kids_img" />
+
+    <TextView
+        android:id="@+id/kid_subject_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kid's Learning Subject: "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_margin="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/overviewDescription_txt" />
+    <TextView
+        android:id="@+id/kid_subject_bem_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bangla, English, Mathematics "
+        android:textSize="16dp"
+        android:textColor="@color/purple_200"
+        android:layout_marginLeft="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kid_subject_txt" />
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/kid_subject_bem_txt">
+
+        <TextView
+            android:id="@+id/class_duration_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class Duration "
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/purple_200"
+           />
+        <TextView
+            android:id="@+id/duration_month_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration: 4 Months "
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"/>
+
+        <TextView
+            android:id="@+id/total_class_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total classes - 33. "
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+             />
+        <TextView
+            android:id="@+id/total_class_time_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(1 hour a day, 2 days in a week)"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            />
+
+        <TextView
+            android:id="@+id/course_fee_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Fee "
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+             />
+        <TextView
+            android:id="@+id/taka_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4800 BDT "
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            />
+
+        <TextView
+            android:id="@+id/taka_details_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(USD = $ 56, EURO = 48)"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+             />
+
+        <TextView
+            android:id="@+id/payment_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Method "
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_200"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:id="@+id/first_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1st installment 40% = 1920 BDT "
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            />
+
+        <TextView
+            android:id="@+id/first_details_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(3 days before start of the course)"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_txt" />
+        <TextView
+            android:id="@+id/second_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2nd installment 30% = 1440 BDT "
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+          />
+
+        <TextView
+            android:id="@+id/second_details_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Within 35 days)"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            />
+
+        <TextView
+            android:id="@+id/third_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3rd installment 30% = 1440 BDT "
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/third_details_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Within 72 days)"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/enroll_btn"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_back"
+            android:text="Enroll"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:fontFamily="@font/roboto"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

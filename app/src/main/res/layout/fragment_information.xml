@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.InformationFragment">
+
+
+   <ImageView
+       android:id="@+id/cover_img"
+       android:layout_width="0sp"
+       android:layout_height="200sp"
+       android:src="@drawable/profile_logo"
+       android:scaleType="centerCrop"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"/>
+   <de.hdodenhof.circleimageview.CircleImageView
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:id="@+id/profile_img"
+       android:layout_width="96dp"
+       android:layout_height="96dp"
+       android:gravity="center"
+       android:src="@drawable/profile_logo"
+       app:civ_border_color="#FF000000"
+       app:civ_border_width="2dp"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/cover_img"
+       app:layout_constraintBottom_toBottomOf="@id/cover_img"/>
+   <ImageView
+       android:id="@+id/edit_pen"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_baseline_edit_24"
+       android:layout_margin="10dp"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"/>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/cover_img">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+         <TextView
+             android:id="@+id/name"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Name : Md. Ariful Islam"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             android:layout_marginLeft="10dp"
+             android:layout_marginTop="10dp"/>
+         <TextView
+             android:id="@+id/email"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Email : ariful.cit.bd@gmail.com"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/name"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/phone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Phone : 01533046610"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/email"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/dath_of_birth"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Date of birth : oct 10, 1998"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/phone"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/father_name"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Father Name : Md. Abdul Momin"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/dath_of_birth"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/mother_name"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Mother Name : Amena Khatun"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/father_name"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/address"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Address : Santhia, Pabna"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/mother_name"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/whatsapp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="WhatsApp No : 01765709950"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/address"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/nationality"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Nationality : Bangladesh"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/whatsapp"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/guardian_name"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Guardian Name : Md. Abdul Momim"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/nationality"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/guardian_phone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Guardian Phone No : 01745940463"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/guardian_name"
+             android:layout_marginLeft="10dp" />
+         <TextView
+             android:id="@+id/guardian_relation"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Relation with Guardian : Son"
+             android:textColor="@color/black"
+             android:textSize="20sp"
+             android:fontFamily="@font/roboto"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/guardian_phone"
+             android:layout_marginLeft="10dp" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+   </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

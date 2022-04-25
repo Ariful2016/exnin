@@ -1,0 +1,2 @@
+rootProject.name = "NetSchool24"
+include ':app'

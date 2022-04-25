@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.CartActivity">
+
+    <include
+        android:id="@+id/enroll_toolbar"
+        layout="@layout/cart_toolbar"/>
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enroll_toolbar"
+        android:layout_marginBottom="50dp"
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/kids_img"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/kidlearning"
+                app:layout_constraintHorizontal_bias="0.761"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:id="@+id/course_title_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kid's Learning"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/purple_700"
+                app:layout_constraintStart_toEndOf="@id/kids_img"
+                app:layout_constraintTop_toTopOf="@id/kids_img"
+                app:layout_constraintBottom_toBottomOf="@id/kids_img"/>
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/kids_img"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/course_fee_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Course Fee "
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple_200"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="3dp"
+                    />
+                <TextView
+                    android:id="@+id/taka_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4800 BDT "
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    />
+
+                <TextView
+                    android:id="@+id/taka_details_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(USD = $ 56, EURO = 48)"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    />
+
+                <TextView
+                    android:id="@+id/payment_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Method "
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple_200"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="15dp"
+                    />
+
+                <TextView
+                    android:id="@+id/first_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1st installment 40% = 1920 BDT "
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    />
+
+                <TextView
+                    android:id="@+id/first_details_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(3 days before start of the course)"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/first_txt" />
+                <TextView
+                    android:id="@+id/second_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2nd installment 30% = 1440 BDT "
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/second_details_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Within 35 days)"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    />
+
+                <TextView
+                    android:id="@+id/third_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3rd installment 30% = 1440 BDT "
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/third_details_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Within 72 days)"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="20dp"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="  Name of course"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:boxStrokeColor="@color/purple_500"
+                    app:endIconMode="dropdown_menu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <AutoCompleteTextView
+                        android:padding="8dp"
+                        android:id="@+id/name_of_course"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="  Day"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:boxStrokeColor="@color/purple_500"
+                    app:endIconMode="dropdown_menu"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <AutoCompleteTextView
+                        android:padding="8dp"
+                        android:id="@+id/day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Time"
+                    app:boxStrokeColor="@color/purple_500"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+
+                        android:id="@+id/s_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/black_app"
+                />
+            <TextView
+                android:id="@+id/tk_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                android:textStyle="bold"
+                android:text="Total Taka"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/teal_200"
+                android:fontFamily="@font/roboto"/>
+            <TextView
+                android:id="@+id/tk_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="500 BDT"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/btn_back"
+                android:text="Check Out"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                 />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

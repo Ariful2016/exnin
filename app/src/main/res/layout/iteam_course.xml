@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+
+    app:cardElevation="5dp"
+    app:cardCornerRadius="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_margin="10dp">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/course_img"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@drawable/kidenglish"
+                app:civ_border_width="7dp"
+                app:civ_border_color="#DBDFDF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/course_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/course_img"
+                android:text="Kid's Learning"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto"
+                app:civ_border_width="4dp"
+                android:textColor="@color/black_app"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>
