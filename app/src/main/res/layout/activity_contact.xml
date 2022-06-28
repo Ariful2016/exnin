@@ -13,352 +13,275 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+ <ScrollView
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/contact_toolbar"
+     app:layout_constraintBottom_toBottomOf="parent"
+     android:layout_marginBottom="20dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contact_toolbar"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_marginBottom="30dp">
 
-            android:gravity="center">
+         <LinearLayout
+             android:id="@+id/linear_layout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             >
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="10dp">
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Send Message"
+                 android:layout_margin="10dp"
+                 android:textSize="20sp"
+                 android:textColor="@color/purple_200"
+                 android:textStyle="bold"
+                 android:fontFamily="@font/roboto"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/whatsapp_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/purple_200"
+             <com.google.android.material.textfield.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="Full Name"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                 app:boxStrokeColor="@color/purple_500"
+                 app:endIconMode="clear_text"
+                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    android:orientation="horizontal"
-                    >
+                 <com.google.android.material.textfield.TextInputEditText
+                     android:id="@+id/full_name"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:inputType="text"
+                     />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_whatsapp"
-                        android:textColor="@color/white"
-                        android:padding="8dp"
-                        android:layout_marginLeft="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Whatsapp"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+             </com.google.android.material.textfield.TextInputLayout>
 
+             <com.google.android.material.textfield.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="Mobile Number"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                 app:boxStrokeColor="@color/purple_500"
+                 app:endIconMode="clear_text"
+                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                 <com.google.android.material.textfield.TextInputEditText
+                     android:id="@+id/mobile_num"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:inputType="number"
+                     />
 
-            </androidx.cardview.widget.CardView>
+             </com.google.android.material.textfield.TextInputLayout>
+             <com.google.android.material.textfield.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="E-Mail"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                 app:boxStrokeColor="@color/purple_500"
+                 app:endIconMode="clear_text"
+                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+                 <com.google.android.material.textfield.TextInputEditText
+                     android:id="@+id/e_mail"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:inputType="textEmailAddress"
+                     />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
+             </com.google.android.material.textfield.TextInputLayout>
+             <com.google.android.material.textfield.TextInputLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:hint="Message"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                 app:boxStrokeColor="@color/purple_500"
+                 app:endIconMode="clear_text"
+                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/facebook_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#1D5598"
+                 <com.google.android.material.textfield.TextInputEditText
+                     android:id="@+id/message"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:inputType="text"
+                     />
 
-                    android:orientation="horizontal"
-                    >
+             </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/facebook_logo"
-                        android:textColor="@color/white"
-                        android:padding="8dp"
-                        android:layout_marginLeft="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" Facebook"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+             <androidx.appcompat.widget.AppCompatButton
+                 android:id="@+id/submit_btn"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/btn_back"
+                 android:text="Submit"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginRight="10dp"
+                 android:layout_marginTop="20dp"
+                 android:textAllCaps="false"
+                 android:textStyle="bold"
+                 android:textColor="@color/white"
+                 android:textSize="20sp"/>
 
+         </LinearLayout>
+         <androidx.cardview.widget.CardView
+             android:id="@+id/card"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             app:cardCornerRadius="16dp"
+             app:cardElevation="2dp"
+             android:background="@color/white"
+             android:layout_marginTop="30dp"
+             android:layout_marginLeft="10dp"
+             android:layout_marginRight="10dp"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/linear_layout">
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical"
+                 android:gravity="center">
+                 <androidx.recyclerview.widget.RecyclerView
+                     android:id="@+id/socialRecycler"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+             </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+         </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/card"
+             android:layout_marginTop="20dp"
+             android:layout_marginBottom="50dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/email_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#CC3434"
+             <ImageView
+                 android:id="@+id/phone"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/ic_baseline_phone_24"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="@id/phone_txt1"
+                 app:layout_constraintBottom_toBottomOf="@id/phone_txt2"
+                 android:layout_margin="10dp"/>
 
-                    android:orientation="horizontal"
-                    >
+             <TextView
+                 android:id="@+id/phone_txt1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="+8801765709950"
+                 android:textSize="20sp"
+                 android:layout_marginLeft="10dp"
+                 android:textColor="@color/black"
+                 android:fontFamily="@font/roboto"
+                 app:layout_constraintStart_toEndOf="@id/phone"
+                 app:layout_constraintTop_toTopOf="parent"/>
+             <TextView
+                 android:id="@+id/phone_txt2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="+8801533046610"
+                 android:textSize="20sp"
+                 android:textColor="@color/black"
+                 android:fontFamily="@font/roboto"
+                 android:layout_marginLeft="10dp"
+                 app:layout_constraintStart_toEndOf="@id/phone"
+                 app:layout_constraintTop_toBottomOf="@id/phone_txt1"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_email"
-                        android:padding="8dp"
-                        android:layout_marginLeft="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
+             <ImageView
+                 android:id="@+id/whatsapp_logo"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintTop_toTopOf="@id/phone_txt2"
+                 app:layout_constraintStart_toEndOf="@id/phone_txt2"
+                 android:src="@drawable/ic_whatsapp"
+                 android:layout_marginLeft="5dp"
+                 android:layout_marginTop="3dp"/>
 
+             <ImageView
+                 android:id="@+id/email_logo"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="@id/email_txt1"
+                 app:layout_constraintBottom_toBottomOf="@id/email_txt2"
+                 android:layout_marginLeft="10dp"
+                 android:src="@drawable/ic_baseline_email_24"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+             <TextView
+                 android:id="@+id/email_txt1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="support2@exnin.com"
+                 android:textSize="20sp"
+                 android:textColor="@color/black"
+                 android:fontFamily="@font/roboto"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginTop="20dp"
+                 app:layout_constraintStart_toEndOf="@id/email_logo"
+                 app:layout_constraintTop_toBottomOf="@id/whatsapp_logo"/>
 
-            </androidx.cardview.widget.CardView>
+             <TextView
+                 android:id="@+id/email_txt2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="info.exnin2@gmail.com"
+                 android:textSize="20sp"
+                 android:textColor="@color/black"
+                 android:fontFamily="@font/roboto"
+                 android:layout_marginLeft="10dp"
+                 app:layout_constraintStart_toEndOf="@id/email_logo"
+                 app:layout_constraintTop_toBottomOf="@id/email_txt1"/>
 
+             <ImageView
+                 android:id="@+id/web_logo"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="@id/web_txt"
+                 app:layout_constraintBottom_toBottomOf="@id/web_txt"
+                 android:layout_marginLeft="10dp"
+                 android:src="@drawable/ic_baseline_public_24"/>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/linkedin_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#067CB1"
-
-                    android:orientation="horizontal"
-                    >
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/linkedin"
-                        android:padding="8dp"
-                        android:layout_marginLeft="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Linkedin"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/pinterest_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#CF0C0C"
-
-                    android:orientation="horizontal"
-                    >
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/pinterest"
-                        android:padding="8dp"
-                        android:layout_marginLeft="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pinterest"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/instagram_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#5C4098"
-
-                    android:orientation="horizontal"
-                    >
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/instagram"
-                        android:padding="8dp"
-                        android:layout_marginLeft="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Instagram"
-                        android:textAllCaps="false"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:padding="8dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-           <androidx.cardview.widget.CardView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="15dp"
-               android:layout_marginLeft="20dp"
-               android:layout_marginRight="20dp"
-               android:layout_marginBottom="20dp"
-               app:cardCornerRadius="10dp">
-
-               <androidx.constraintlayout.widget.ConstraintLayout
-                   android:id="@+id/youtube_layout"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:background="#931616"
-
-                   android:orientation="horizontal"
-                   >
-
-                   <ImageView
-                       android:layout_width="40dp"
-                       android:layout_height="40dp"
-                       android:src="@drawable/utube"
-                       android:padding="8dp"
-                       android:layout_marginLeft="10dp"
-                       app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toTopOf="parent"
-                       app:layout_constraintBottom_toBottomOf="parent"/>
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Youtube"
-                       android:textAllCaps="false"
-                       android:textStyle="bold"
-                       android:textColor="@color/white"
-                       android:textSize="20dp"
-                       android:padding="8dp"
-                       app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintEnd_toEndOf="parent"
-                       app:layout_constraintTop_toTopOf="parent"
-                       />
-
-
-               </androidx.constraintlayout.widget.ConstraintLayout>
-
-           </androidx.cardview.widget.CardView>
+             <TextView
+                 android:id="@+id/web_txt"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintStart_toEndOf="@id/web_logo"
+                 app:layout_constraintTop_toBottomOf="@id/email_txt2"
+                 android:layout_marginLeft="10dp"
+                 android:layout_marginBottom="50dp"
+                 android:layout_marginTop="20dp"
+                 android:text="www.creativeit.com"
+                 android:textSize="20sp"
+                 android:textColor="@color/black"
+                 />
 
 
 
 
 
-        </LinearLayout>
+         </androidx.constraintlayout.widget.ConstraintLayout>
+     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+ </ScrollView>
 
 
 

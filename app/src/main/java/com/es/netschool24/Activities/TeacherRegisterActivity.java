@@ -12,18 +12,28 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
+import com.es.netschool24.Models.AllCourse;
+import com.es.netschool24.Models.AllCourseParent;
+import com.es.netschool24.Models.TeachersEducation;
+import com.es.netschool24.MyApi;
+import com.es.netschool24.MyRetrofit;
 import com.es.netschool24.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,37 +48,58 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TeacherRegisterActivity extends AppCompatActivity {
 
-    TextInputEditText full_nameEdit,father_nameEdit,date_of_birthEdit,mobileEdit,emailEdit, present_addressEdit,permanent_addressEdit,educationEdit,versity_nameEdit,resultEdit,passwordEdit;
-    ImageView nid_birth_img,photo_img,certificate_img;
+    TextInputEditText full_nameEdit, father_nameEdit, date_of_birthEdit, mobileEdit, emailEdit, nationalityEdit, present_addressEdit, permanent_addressEdit, versity_nameEdit, resultEdit, passwordEdit;
+    ImageView nid_birth_img, photo_img, certificate_img;
     AppCompatButton register_btn;
     TextView login_txt;
 
-    AutoCompleteTextView gender,name_of_course_recycler;
+    AutoCompleteTextView gender;
+    MultiAutoCompleteTextView name_of_course_recycler, educationEdit;
 
-    String [] Gender = {"Male", "Female"};
-    String[] course_names = {"Bangla", "Math", "English", "Koran shikkha", "English spoken", "Foreign language ", "Basic computer",
-            "Official computer", "Graphic design", "Web design", "Digital marketing", "Others"};
+    String[] Gender = {"Male", "Female"};
+    String[] course_names;
+    String[] teachers_educations;
+
+    List<AllCourse> allCourseList;
+    List<TeachersEducation> teachersEducationList;
 
     DatePickerDialog datePickerDialog;
     DatePicker datePicker;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    DatabaseReference databaseReference;
-    StorageReference storageReference;
 
     ProgressDialog progressDialog;
 
-    Uri nidUri,photoUri,certificateUri;
+    Uri nidUri, photoUri, certificateUri;
     String nidStr, photoStr, certificateStr;
 
     Toolbar toolbar;
 
     ImageView back_img;
+
+    String filePath = "";
+
+    String encodedNidImage;
+    String encodedPhotoImage;
+    String encodedCertificateImage;
 
 
     @SuppressLint("RestrictedApi")
@@ -85,11 +116,11 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         mobileEdit = findViewById(R.id.mobile);
         gender = findViewById(R.id.gender);
         name_of_course_recycler = findViewById(R.id.name_of_course);
+        nationalityEdit = findViewById(R.id.nationality);
         present_addressEdit = findViewById(R.id.present_address);
         permanent_addressEdit = findViewById(R.id.permanent_address);
         educationEdit = findViewById(R.id.education);
         versity_nameEdit = findViewById(R.id.versity_name);
-        resultEdit = findViewById(R.id.result);
         passwordEdit = findViewById(R.id.password);
         nid_birth_img = findViewById(R.id.nid_birth);
         photo_img = findViewById(R.id.photo);
@@ -98,12 +129,15 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         login_txt = findViewById(R.id.login_txt);
 
 
+        allCourseList = new ArrayList<>();
+        teachersEducationList = new ArrayList<>();
 
 
-       toolbar = findViewById(R.id.teacher_toolbar);
+        toolbar = findViewById(R.id.teacher_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         // clickable nid_birth imageview to take all nid img from user phone
         nid_birth_img.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +145,7 @@ public class TeacherRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent,101);
+                startActivityForResult(intent, 101);
             }
         });
 
@@ -121,7 +155,7 @@ public class TeacherRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent,102);
+                startActivityForResult(intent, 102);
             }
         });
 
@@ -131,14 +165,12 @@ public class TeacherRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent,103);
+                startActivityForResult(intent, 103);
             }
         });
 
+
         //initialise firebaseAuth,databaseReference & storageReference
-        firebaseAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("User").child("Teacher");
-        storageReference = FirebaseStorage.getInstance().getReference("Upload").child("Teacher_img_info");
 
 
         // initialise progressDialog
@@ -146,13 +178,57 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         progressDialog.setTitle("Please Wait !");
         progressDialog.setMessage("Creating Your Account.....!");
 
+
+        MyApi myApi = MyRetrofit.getRetrofit().create(MyApi.class);
+        Call<AllCourseParent> allCourse = myApi.getAllCourse();
+        Call<List<TeachersEducation>> teachersEducationCall = myApi.getTeachersEducation();
+
+        teachersEducationCall.enqueue(new Callback<List<TeachersEducation>>() {
+            @Override
+            public void onResponse(Call<List<TeachersEducation>> call, Response<List<TeachersEducation>> response) {
+                teachersEducationList = response.body();
+                teachers_educations = new String[teachersEducationList.size()];
+                for (int i = 0; i < teachersEducationList.size(); i++) {
+                    teachers_educations[i] = teachersEducationList.get(i).getName();
+                }
+                ArrayAdapter<String> educationAdapter = new ArrayAdapter<String>(TeacherRegisterActivity.this, android.R.layout.simple_list_item_1, teachers_educations);
+                educationEdit.setAdapter(educationAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<TeachersEducation>> call, Throwable t) {
+
+            }
+        });
+
+        allCourse.enqueue(new Callback<AllCourseParent>() {
+            @Override
+            public void onResponse(Call<AllCourseParent> call, Response<AllCourseParent> response) {
+                allCourseList = response.body().getCourse();
+                course_names = new String[allCourseList.size()];
+
+                for (int i = 0; i < allCourseList.size(); i++) {
+
+                    course_names[i] = allCourseList.get(i).getName();
+                }
+
+                ArrayAdapter<String> courseNameAdapter = new ArrayAdapter<String>(TeacherRegisterActivity.this, android.R.layout.simple_list_item_1, course_names);
+                name_of_course_recycler.setAdapter(courseNameAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<AllCourseParent> call, Throwable t) {
+
+            }
+        });
+
         // Add gender into spinner
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(TeacherRegisterActivity.this, android.R.layout.simple_list_item_1,Gender);
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(TeacherRegisterActivity.this, android.R.layout.simple_list_item_1, Gender);
         gender.setAdapter(genderAdapter);
 
         // Add course into spinner
-        ArrayAdapter<String> courseNameAdapter = new ArrayAdapter<String>(TeacherRegisterActivity.this, android.R.layout.simple_list_item_1,course_names);
-        name_of_course_recycler.setAdapter(courseNameAdapter);
+        /*ArrayAdapter<String> courseNameAdapter = new ArrayAdapter<String>(TeacherRegisterActivity.this, android.R.layout.simple_list_item_1,course_names);
+        name_of_course_recycler.setAdapter(courseNameAdapter);*/
 
         gender.addTextChangedListener(new TextWatcher() {
             @Override
@@ -171,28 +247,15 @@ public class TeacherRegisterActivity extends AppCompatActivity {
             }
         });
         // show all course using recycler
-        name_of_course_recycler.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        name_of_course_recycler.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        educationEdit.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
         // initialise date picker to set date on date_of_birth editText
         datePicker = new DatePicker(this);
         int currentDay = datePicker.getDayOfMonth();
-        int currentMonth = (datePicker.getMonth())+1;
+        int currentMonth = (datePicker.getMonth()) + 1;
         int currentYear = datePicker.getYear();
 
         date_of_birthEdit.setOnClickListener(new View.OnClickListener() {
@@ -203,9 +266,9 @@ public class TeacherRegisterActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                                date_of_birthEdit.setText(day + "/" + (month+1) +"/"+ year);
+                                date_of_birthEdit.setText(day + "/" + (month + 1) + "/" + year);
                             }
-                        },currentYear,currentMonth,currentDay);
+                        }, currentYear, currentMonth, currentDay);
 
                 datePickerDialog.show();
 
@@ -216,7 +279,7 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         login_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),TeacherLoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), TeacherLoginActivity.class));
             }
         });
 
@@ -232,172 +295,109 @@ public class TeacherRegisterActivity extends AppCompatActivity {
                 String t_email = emailEdit.getText().toString().trim();
                 String t_mobile = mobileEdit.getText().toString().trim();
                 String t_gender = gender.getText().toString().trim();
+                String t_national = nationalityEdit.getText().toString().trim();
                 String t_course = name_of_course_recycler.getText().toString().trim();
                 String t_present_address = present_addressEdit.getText().toString().trim();
                 String t_permanent_address = permanent_addressEdit.getText().toString().trim();
                 String t_education = educationEdit.getText().toString().trim();
                 String t_versity_name = versity_nameEdit.getText().toString().trim();
-                String t_result = resultEdit.getText().toString().trim();
                 String t_password = passwordEdit.getText().toString().trim();
-               // String t_nid_birth = nid_birth.getText.toString().trim();
-                //String t_photo = photo.getText().toString().trim();
-                //String t_certificate = certificate.getText().toString().trim();
-
                 // check validation user input
-                if(t_name.equals("")){
+                if (t_name.equals("")) {
                     ShowError("Name field can't be empty!");
-                }else if(t_father.equals("")){
+                } else if (t_father.equals("")) {
                     ShowError("Father's name field can't be empty!");
-                }else if(t_birth.equals("")){
-                    ShowError("Birth field can't be empty!");
-                }else if(t_mobile.equals("")){
+                } else if (t_mobile.equals("")) {
                     ShowError("Mobile field can't be empty!");
-                }else if(t_gender.equals("")){
+                } else if (t_gender.equals("")) {
                     ShowError("Gender field can't be empty!");
-                }else if(t_email.equals("")){
+                } else if (t_email.equals("")) {
                     ShowError("Email field can't be empty!");
-                }else if(t_course.equals("")){
+                } else if (t_course.equals("")) {
                     ShowError("Course field can't be empty!");
-                }else if(t_present_address.equals("")){
+                } else if (t_present_address.equals("")) {
                     ShowError("Present Address field can't be empty!");
-                }else if(t_permanent_address.equals("")){
+                } else if (t_permanent_address.equals("")) {
                     ShowError("Permanent Address field can't be empty!");
-                }else if(t_education.equals("")){
+                } else if (t_education.equals("")) {
                     ShowError("Education field can't be empty!");
-                }else if(t_versity_name.equals("")){
+                } else if (t_versity_name.equals("")) {
                     ShowError("University field can't be empty!");
-                }else if(t_result.equals("")){
-                    ShowError("Result field can't be empty!");
-                }else if(t_password.equals("")){
+                } else if (encodedNidImage.equals("")) {
+                    ShowError("NID field can't be empty!");
+                } else if (t_birth.equals("")) {
+                    ShowError("Birth field can't be empty!");
+                } else if (encodedCertificateImage.equals("")) {
+                    ShowError("Certificate field can't be empty!");
+                } else if (encodedPhotoImage.equals("")) {
+                    ShowError("Certificate field can't be empty!");
+                } else if (t_password.equals("")) {
                     ShowError("Password field can't be empty!");
-                }else if(t_password.length()<6){
+                } else if (t_password.length() < 6) {
                     ShowError("Password must be more than 6!");
-                }else {
-                    // create account with email & password
-                    firebaseAuth.createUserWithEmailAndPassword(t_email,t_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                } else {
+                    progressDialog.show();
 
-                            if (task.isSuccessful()){
+                    MyApi myApi = MyRetrofit.getRetrofit().create(MyApi.class);
+                    if (encodedNidImage != null && encodedPhotoImage != null && encodedCertificateImage != null) {
+                        Log.i("TAG", "onClick: " + encodedNidImage + encodedPhotoImage + encodedCertificateImage);
 
-                                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        Call<ResponseBody> tRequest = myApi.tRegister(
+                                t_name,
+                                t_email,
+                                t_password,
+                                t_birth,
+                                t_mobile,
+                                t_present_address,
+                                t_national,
+                                t_education,
+                                t_father,
+                                t_gender,
+                                t_permanent_address,
+                                t_course,
+                                t_versity_name,
+                                encodedNidImage,
+                                encodedPhotoImage,
+                                encodedCertificateImage
+                        );
 
-                                if (firebaseUser != null) {
+                        tRequest.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                    String currentTeacherId = firebaseUser.getUid();
-
-
-                                    // create nid storageReference
-                                    StorageReference nidRef = storageReference.child(currentTeacherId).child("NID_"+ System.currentTimeMillis());
-                                    nidRef.putFile(nidUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                            if (task.isSuccessful()) {
-
-
-                                                nidRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                    @Override
-                                                    public void onSuccess(Uri uri) {
-
-                                                      nidStr = String.valueOf(uri);
-
-                                                        // create photo storageReference
-                                                        StorageReference photoRef = storageReference.child(currentTeacherId).child("Photo_"+ System.currentTimeMillis());
-                                                        photoRef.putFile(photoUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                                                                if (task.isSuccessful()){
-
-                                                                    photoRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                                        @Override
-                                                                        public void onSuccess(Uri uri) {
-
-                                                                            photoStr= String.valueOf(uri);
-
-                                                                            // create certificate storageReference
-                                                                            StorageReference certificateRef = storageReference.child(currentTeacherId).child("Certificate_"+ System.currentTimeMillis());
-                                                                            certificateRef.putFile(certificateUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                                                                @Override
-                                                                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                                                                                    if(task.isSuccessful()){
-
-                                                                                        certificateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                                                            @Override
-                                                                                            public void onSuccess(Uri uri) {
-                                                                                                certificateStr = String.valueOf(uri);
-
-
-                                                                                                HashMap<String, Object> TeacherMap = new HashMap<>();
-                                                                                                TeacherMap.put("fullName",t_name);
-                                                                                                TeacherMap.put("fatherName",t_father);
-                                                                                                TeacherMap.put("dateOfBirth",t_birth);
-                                                                                                TeacherMap.put("email",t_email);
-                                                                                                TeacherMap.put("mobile",t_mobile);
-                                                                                                TeacherMap.put("gender",t_gender);
-                                                                                                TeacherMap.put("nameOfCourse",t_course);
-                                                                                                TeacherMap.put("PresentAddress",t_present_address);
-                                                                                                TeacherMap.put("permanentAddress",t_permanent_address);
-                                                                                                TeacherMap.put("education",t_education);
-                                                                                                TeacherMap.put("versityName",t_versity_name);
-                                                                                                TeacherMap.put("result",t_result);
-                                                                                                TeacherMap.put("password",t_password);
-                                                                                                TeacherMap.put("nidImg",nidStr);
-                                                                                                TeacherMap.put("photo",photoStr);
-                                                                                                TeacherMap.put("certificate",certificateStr);
-                                                                                                TeacherMap.put("TeacherId",currentTeacherId);
-
-                                                                                                // send input data to database
-                                                                                                databaseReference.child(currentTeacherId).setValue(TeacherMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                                    @Override
-                                                                                                    public void onComplete(@NonNull Task<Void> task) {
-
-                                                                                                        if (task.isSuccessful()) {
-
-                                                                                                            startActivity(new Intent(TeacherRegisterActivity.this, TeacherLoginActivity.class));
-                                                                                                            progressDialog.dismiss();
-                                                                                                            finish();
-                                                                                                        }else {
-                                                                                                            progressDialog.dismiss();
-                                                                                                            Log.i("TAG", "Error is : " + task.getException().getMessage());
-                                                                                                            ShowError(task.getException().getMessage());
-
-                                                                                                        }
-                                                                                                    }
-                                                                                                });
-                                                                                            }
-                                                                                        });
-                                                                                    }
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
-                                }
-
-                            }else {
-
+                                Log.i("tRegister", "onSuccess: " + response.body());
                                 progressDialog.dismiss();
-                                Log.i("TAG", "Error is : " + task.getException().getMessage());
-                                ShowError(task.getException().getMessage());
+                                finish();
+
 
                             }
 
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                Log.i("tRegister", "errorResponse: " + t.getMessage());
+                                progressDialog.dismiss();
+
+                            }
+                        });
+
+
+                    }
+
+
                 }
 
             }
         });
 
+    }
+    private String encodeImage(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return encImage;
     }
 
     // check nid_birth,photo,certificate works properly or not with method override
@@ -405,29 +405,67 @@ public class TeacherRegisterActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 101){
-            if(resultCode == RESULT_OK){
-                if(data!= null){
-
+        if (requestCode == 101) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     nidUri = data.getData();
-                    nid_birth_img.setImageURI(nidUri);
+                    final InputStream imageStream;
+                    try {
+                        imageStream = getContentResolver().openInputStream(nidUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        encodedNidImage = encodeImage(selectedImage);
 
+                        Log.i("TAG", "onActivityResult: " + encodedNidImage);
+
+                        nid_birth_img.setImageBitmap(selectedImage);
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
 
                 }
             }
-        }else if(requestCode ==102){
-            if(resultCode == RESULT_OK){
-                if (data!= null ){
+        }
+        if (requestCode == 102) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     photoUri = data.getData();
-                    photo_img.setImageURI(photoUri);
+                    final InputStream imageStream;
+                    try {
+                        imageStream = getContentResolver().openInputStream(photoUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        encodedPhotoImage = encodeImage(selectedImage);
+
+                        Log.i("TAG", "onActivityResult: " + encodedPhotoImage);
+
+                        photo_img.setImageBitmap(selectedImage);
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
             }
-        }else if(requestCode ==103){
-            if(resultCode == RESULT_OK){
-                if (data!= null ){
+        }
+        if (requestCode == 103) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
                     certificateUri = data.getData();
-                    certificate_img.setImageURI(certificateUri);
+                    final InputStream imageStream;
+                    try {
+                        imageStream = getContentResolver().openInputStream(certificateUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        encodedCertificateImage = encodeImage(selectedImage);
+
+                        Log.i("TAG", "onActivityResult: " + encodedCertificateImage);
+
+                        certificate_img.setImageBitmap(selectedImage);
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -454,4 +492,6 @@ public class TeacherRegisterActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
+
 }
+

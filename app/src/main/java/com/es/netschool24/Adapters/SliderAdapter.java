@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.es.netschool24.AppConstants.AppConstants;
+import com.es.netschool24.Models.Banners;
 import com.es.netschool24.Models.SliderItems;
 import com.es.netschool24.R;
 import com.es.netschool24.ViewHolders.SliderViewHolder;
@@ -17,11 +19,12 @@ import java.util.List;
 public class SliderAdapter extends SliderViewAdapter<SliderViewHolder> {
 
     private Context context;
-    private List<SliderItems> mSliderItems;
+    private List<Banners> bannersList;
 
-    public SliderAdapter(Context context, List<SliderItems> mSliderItems) {
+
+    public SliderAdapter(Context context, List<Banners> bannersList) {
         this.context = context;
-        this.mSliderItems = mSliderItems;
+        this.bannersList = bannersList;
     }
 
     @Override
@@ -33,19 +36,19 @@ public class SliderAdapter extends SliderViewAdapter<SliderViewHolder> {
 
     @Override
     public void onBindViewHolder(SliderViewHolder viewHolder, int position) {
-        SliderItems sliderItem = mSliderItems.get(position);
+        Banners banners = bannersList.get(position);
 
-        viewHolder.textViewDescription.setText(sliderItem.getDescription());
-        viewHolder.textViewDescription.setTextSize(16);
-        viewHolder.textViewDescription.setTextColor(Color.WHITE);
+        //viewHolder.textViewDescription.setText(sliderItem.getDescription());
+        //viewHolder.textViewDescription.setTextSize(16);
+        //viewHolder.textViewDescription.setTextColor(Color.WHITE);
         Glide.with(viewHolder.itemView)
-                .load(sliderItem.getImageUrl())
+                .load(AppConstants.banner_image_path+banners.getBannerImage())
                 .fitCenter()
                 .into(viewHolder.imageViewBackground);
     }
 
     @Override
     public int getCount() {
-        return mSliderItems.size();
+        return bannersList.size();
     }
 }
