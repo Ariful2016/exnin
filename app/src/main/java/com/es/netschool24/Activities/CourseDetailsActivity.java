@@ -63,7 +63,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
     String[] selectDay;
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint ("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,24 +191,27 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 int uId = sharedPreferences.getInt("userId", 0);
                 String userID = String.valueOf(uId);
 
+                String token = sharedPreferences.getString("token", "");
+
+                Log.i("TAG", "onClick: " + token);
 
                 String day_str = day.getText().toString();
                 String time_str = time.getText().toString();
 
                 if (SharedPrefManager.getInstance(CourseDetailsActivity.this).isLoggedIn()) {
 
-                    myApi.courseEnroll(day_str, time_str, userID, courseId).enqueue(new Callback<ResponseBody>() {
+                    myApi.courseEnroll("Bearer " + token, day_str, time_str, userID, courseId).enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                            Log.i("Enroll", "onResponse: "+ response.body().toString());
+                            Log.i("Enroll", "onResponse: " + response);
                             dialog.dismiss();
                         }
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                            Log.i("TAG", "onFailure: "+ t.getMessage());
+                            Log.i("Enroll", "onFailure: " + t.getMessage());
                             dialog.dismiss();
 
                         }
