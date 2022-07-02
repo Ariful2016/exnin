@@ -35,6 +35,7 @@ import com.es.netschool24.Models.TeachersEducation;
 import com.es.netschool24.MyApi;
 import com.es.netschool24.MyRetrofit;
 import com.es.netschool24.R;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -153,9 +154,16 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         photo_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+
+                ImagePicker.with(TeacherRegisterActivity.this)
+                        .crop()                    //Crop image(Optional), Check Customization for more option
+                        .compress(512)            //Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(300, 300)    //Final image resolution will be less than 1080 x 1080(Optional)
+                        .start(102);
+
+                /*               Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent, 102);
+                startActivityForResult(intent, 102);*/
             }
         });
 
