@@ -109,9 +109,17 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         nid_birth_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< Updated upstream
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent,101);
+=======
+                ImagePicker.with(TeacherRegisterActivity.this)
+                        .crop()                    //Crop image(Optional), Check Customization for more option
+                        .compress(512)            //Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(300, 300)    //Final image resolution will be less than 1080 x 1080(Optional)
+                        .start(101);
+>>>>>>> Stashed changes
             }
         });
 
@@ -129,9 +137,17 @@ public class TeacherRegisterActivity extends AppCompatActivity {
         certificate_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< Updated upstream
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent,103);
+=======
+                ImagePicker.with(TeacherRegisterActivity.this)
+                        .crop()                    //Crop image(Optional), Check Customization for more option
+                        .compress(512)            //Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(300, 300)    //Final image resolution will be less than 1080 x 1080(Optional)
+                        .start(103);
+>>>>>>> Stashed changes
             }
         });
 
@@ -272,6 +288,7 @@ public class TeacherRegisterActivity extends AppCompatActivity {
                     ShowError("Password field can't be empty!");
                 }else if(t_password.length()<6){
                     ShowError("Password must be more than 6!");
+<<<<<<< Updated upstream
                 }else {
                     // create account with email & password
                     firebaseAuth.createUserWithEmailAndPassword(t_email,t_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -384,6 +401,42 @@ public class TeacherRegisterActivity extends AppCompatActivity {
                                 }
 
                             }else {
+=======
+                } else {
+                    progressDialog.show();
+
+                    MyApi myApi = MyRetrofit.getRetrofit().create(MyApi.class);
+                    if (encodedNidImage != null && encodedPhotoImage != null && encodedCertificateImage != null) {
+                        Log.i("TAG", "onClick: " + encodedNidImage + encodedPhotoImage + encodedCertificateImage);
+
+                        Call<ResponseBody> tRequest = myApi.tRegister(
+                                t_name,
+                                t_email,
+                                t_password,
+                                t_birth,
+                                t_mobile,
+                                t_present_address,
+                                t_national,
+                                t_education,
+                                t_father,
+                                t_gender,
+                                t_permanent_address,
+                                t_course,
+                                t_versity_name,
+                                encodedNidImage,
+                                encodedPhotoImage,
+                                encodedCertificateImage
+                        );
+
+                        tRequest.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                Log.i("tRegister", "onSuccess: " + response.body()+" "+ response.code());
+                                progressDialog.dismiss();
+                                finish();
+
+>>>>>>> Stashed changes
 
                                 progressDialog.dismiss();
                                 Log.i("TAG", "Error is : " + task.getException().getMessage());
