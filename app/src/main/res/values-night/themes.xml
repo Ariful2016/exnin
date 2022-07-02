@@ -2,13 +2,17 @@
     <!-- Base application theme. -->
     <style name="Theme.NetSchool24" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <color name="purple_200">#5BAD3F</color>
+        <color name="purple_500">#5BAD3F</color>
+        <color name="purple_700">#5BAD3F</color>
+        <color name="teal_200">#5BAD3F</color>
+        <color name="teal_700">#FF018786</color>
+        <color name="colorPrimaryVariant">#FF000000</color>
+        <color name="black_app">#464545</color>
+        <color name="colorOnPrimary">#FFFFFFFF</color>
+        <color name="background">#83A368</color>
+
+        <color name="purple_deep">#227705</color>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
