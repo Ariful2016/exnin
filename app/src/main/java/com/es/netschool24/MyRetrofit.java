@@ -1,5 +1,6 @@
 package com.es.netschool24;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,7 +11,7 @@ public class MyRetrofit {
     public static Retrofit getRetrofit(){
         if (retrofit==null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl("")
+                    .baseUrl("https://exnin.com/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

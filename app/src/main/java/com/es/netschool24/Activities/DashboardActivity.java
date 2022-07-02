@@ -16,6 +16,7 @@ import android.database.DatabaseErrorHandler;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,12 +25,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.es.netschool24.Adapters.SliderAdapter;
 
+import com.es.netschool24.AppConstants.AppConstants;
 import com.es.netschool24.Fragment.HomeFragment;
 import com.es.netschool24.Fragment.MessageFragment;
+import com.es.netschool24.Models.Options;
 import com.es.netschool24.Models.SliderItems;
+import com.es.netschool24.MyApi;
+import com.es.netschool24.MyRetrofit;
 import com.es.netschool24.R;
+import com.es.netschool24.storage.SharedPrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +55,9 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DashboardActivity extends AppCompatActivity {
@@ -63,8 +73,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
+    List<Options> optionsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +82,9 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         // find toolbar & setup
+
+
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
         // find all text view
         profile_image = findViewById(R.id.profile_image);
         profileName = findViewById(R.id.profileName);
@@ -93,10 +102,37 @@ public class DashboardActivity extends AppCompatActivity {
         contact = findViewById(R.id.contact);
         logo = findViewById(R.id.logo);
 
-        // initialise firebaseAuth & firebaseUser
-        firebaseAuth = FirebaseAuth.getInstance();
+        optionsList = new ArrayList<>();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        MyApi myApi = MyRetrofit.getRetrofit().create(MyApi.class);
+        Call<List<Options>> options = myApi.getOptions();
+
+        options.enqueue(new Callback<List<Options>>() {
+            @Override
+            public void onResponse(Call<List<Options>> call, Response<List<Options>> response) {
+                optionsList = response.body();
+                assert optionsList != null;
+                if (optionsList.size()>0){
+                    for (Options i : optionsList){
+                        Log.i("Logo", "onResponse: "+ AppConstants.logo_image_path+i.getLogo()+ " "+AppConstants.logo_icon_image_path+i.getLogoIcon());
+
+                        toolbar.setLogoDescription(AppConstants.logo_image_path+i.getLogo());
+
+
+                        //logo.setImageURI(Uri.parse(AppConstants.logo_icon_image_path+i.getLogoIcon()));
+                        Glide.with(DashboardActivity.this).load(AppConstants.logo_icon_image_path+i.getLogoIcon()).into(logo);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Options>> call, Throwable t) {
+
+            }
+        });
+
+        setSupportActionBar(toolbar);
 
 
         // initialise fragmentmanager
@@ -135,10 +171,9 @@ public class DashboardActivity extends AppCompatActivity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(DashboardActivity.this, "WhatsApp is clicked", Toast.LENGTH_SHORT).show();
-                Intent whatsapp = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.whatsapp.com/"));
-                startActivity(whatsapp);
+                //Intent whatsapp = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.whatsapp.com/"));
+                //startActivity(whatsapp);
+                startActivity(new Intent(DashboardActivity.this,DashboardActivity.class));
 
             }
         });
@@ -307,26 +342,19 @@ public class DashboardActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == R.id.term_condition){
-
-            Toast.makeText(DashboardActivity.this, "Term and Condition Clicked", Toast.LENGTH_SHORT).show();
-        }
         if(item.getItemId() == R.id.privacy_policy){
 
-            Toast.makeText(DashboardActivity.this, "Privacy and Policy Clicked", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(DashboardActivity.this, "Privacy and Policy Clicked", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(DashboardActivity.this, PrivacyPolicyActivity.class));
+
         }
         if(item.getItemId() == R.id.changePassword){
 
             Toast.makeText(DashboardActivity.this, "Change Password Clicked", Toast.LENGTH_SHORT).show();
         }
         if(item.getItemId() == R.id.logout){
-
-
-            firebaseAuth.signOut();
-
-            startActivity(new Intent(DashboardActivity.this, Signin_LoginActivity.class));
-            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-
+            SharedPrefManager.getInstance(DashboardActivity.this).LoggedOut();
+            startActivity(new Intent(DashboardActivity.this, SignInActivity.class));
             finish();
         }
 

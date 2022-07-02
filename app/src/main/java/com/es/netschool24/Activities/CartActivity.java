@@ -1,30 +1,48 @@
 package com.es.netschool24.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.util.Log;
+import android.widget.TextView;
 
+import com.es.netschool24.Adapters.CartAdapter;
+import com.es.netschool24.Models.Cart;
+import com.es.netschool24.Models.CartCourse;
+import com.es.netschool24.Models.CartCourseMain;
+import com.es.netschool24.MyApi;
+import com.es.netschool24.MyRetrofit;
 import com.es.netschool24.R;
-import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextInputEditText time;
-    AutoCompleteTextView name_of_course,day;
+    //TextView day, time, course_title_txt, fee_taka_txt, first_pay,second_pay, third_pay,total_taka_txt, total_taka;
+    AppCompatButton check_btn;
+    Intent intent;
+    String d,t, img, title, fee;
+    CircleImageView kids_img;
 
-    String[] course_names = {"Kid's Learning", "Kid's English", "Spoken English", "Arabic Shikkha", "Quran Shikkha", "Bangla Language ", "Foreign Language",
-            "General knowledge", "Basic Computer", "Official Computer", "Video Editing", "Digital Marketing", "Graphics Design", "Web Design", "App Development", "Freelancing", "Others"};
+    List<Cart> cartList;
+    RecyclerView cart_recycler;
+    List<CartCourse> cartCourseList;
 
-    String [] days = {"SAT - TUE - FRI", "SUN - TUE - THU", "MON - WED - FRI", "SAT - TUE - FRI", "TUE - THU - SAT", "WED - FRI - SUN", "THU - SAT - MON", "FRI - SUN - TUE"};
+    CartAdapter cartAdapter;
+
+    TextView total_taka;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -34,59 +52,66 @@ public class CartActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.enroll_toolbar);
 
-        name_of_course = findViewById(R.id.name_of_course);
-        day = findViewById(R.id.day);
-        time = findViewById(R.id.s_time);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ArrayAdapter<String> courseNameAdapter = new ArrayAdapter<String>(CartActivity.this, android.R.layout.simple_list_item_1,course_names);
-        name_of_course.setAdapter(courseNameAdapter);
+        cartList = new ArrayList<>();
+        cartCourseList = new ArrayList<>();
 
-        // Add days into spinner
-        ArrayAdapter<String> daysAdapter = new ArrayAdapter<String>(CartActivity.this, android.R.layout.simple_list_item_1,days);
-        day.setAdapter(daysAdapter);
+        cart_recycler = findViewById(R.id.cart_recycler);
+        total_taka = findViewById(R.id.total_taka);
 
-        name_of_course.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+       // intent = getIntent();
 
-            }
+        /*if (intent.hasExtra("day")){
+           d =  intent.getStringExtra("day");
+           t = intent.getStringExtra("time");
+           //img = intent.getStringExtra("img");
+           //title = intent.getStringExtra("title");
+           //fee = intent.getStringExtra("fee");
+        }
+*/
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
+        //Picasso.get().load(img).placeholder(R.drawable.kidlearning).into(kids_img);
+        //course_title_txt.setText(title);
+        //fee_taka_txt.setText(fee+" BDT");
 
-            }
-        });
-        day.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+       // day.setText(d);
+       // time.setText(t);
 
-            }
+        MyApi myApi = MyRetrofit.getRetrofit().create(MyApi.class);
+        Call<CartCourseMain> callCart = myApi.getCart();
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+       callCart.enqueue(new Callback<CartCourseMain>() {
+           @Override
+           public void onResponse(Call<CartCourseMain> call, Response<CartCourseMain> response) {
+               if (response.isSuccessful()){
+                   assert response.body() != null;
+                   //cartCourseList = response.body();
+                   Log.i("cartId","success ") ;
 
-            }
+                   cartAdapter = new CartAdapter(CartActivity.this, cartCourseList);
+                   cart_recycler.setAdapter(cartAdapter);
 
-            @Override
-            public void afterTextChanged(Editable editable) {
 
-            }
-        });
+                   int total_price = response.body().getPayTotal();
+                   Log.i("cartId","success "+ total_price) ;
+                   total_taka.setText(total_price);
+               }
+           }
 
-        /*enroll_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CourseDetailsActivity.this,CartActivity.class));
-            }
-        });*/
+           @Override
+           public void onFailure(Call<CartCourseMain> call, Throwable t) {
+               Log.i("cartId","fail "+ t.getLocalizedMessage().toString()) ;
+
+           }
+       });
+
+
+
     }
 }

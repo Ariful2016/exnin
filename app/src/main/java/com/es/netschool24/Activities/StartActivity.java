@@ -23,7 +23,7 @@ import java.util.List;
 public class StartActivity extends AppCompatActivity {
 
     AppCompatButton register_btn,login_btn;
-    TextView login_txt;
+   // TextView login_txt;
 
 
 
@@ -34,7 +34,7 @@ public class StartActivity extends AppCompatActivity {
 
         register_btn = findViewById(R.id.register_btn);
         login_btn = findViewById(R.id.login_btn);
-        login_txt = findViewById(R.id.login_txt);
+        //login_txt = findViewById(R.id.login_txt);
 
 
 
@@ -56,7 +56,7 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
-        login_txt.setOnClickListener(new View.OnClickListener() {
+       /* login_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -64,7 +64,7 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
 
        // UserPermission();
 

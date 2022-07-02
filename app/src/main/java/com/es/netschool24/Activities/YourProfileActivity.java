@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.es.netschool24.Adapters.ProfileFragmentAdapter;
+import com.es.netschool24.Adapters.TeacherProfileFragmentAdapter;
 import com.es.netschool24.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -18,6 +19,7 @@ public class YourProfileActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
     ProfileFragmentAdapter adapter;
+    TeacherProfileFragmentAdapter teacherProfileFragmentAdapter;
     FragmentManager fragmentManager;
     ImageView back;
 
@@ -30,6 +32,7 @@ public class YourProfileActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         fragmentManager =getSupportFragmentManager();
         adapter = new ProfileFragmentAdapter(fragmentManager);
+        teacherProfileFragmentAdapter = new TeacherProfileFragmentAdapter(fragmentManager);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 

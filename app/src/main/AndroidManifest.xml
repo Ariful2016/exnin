@@ -15,9 +15,13 @@
         android:theme="@style/Theme.NetSchool24"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activities.PrivacyPolicyActivity"
+            android:exported="false"
+            android:parentActivityName=".Activities.DashboardActivity"/>
+        <activity
             android:name=".Activities.CartActivity"
             android:exported="false"
-            android:parentActivityName=".Activities.CourseDetailsActivity"/>
+            android:parentActivityName=".Activities.CourseDetailsActivity" />
 
         <service
             android:name=".Services.MyService"

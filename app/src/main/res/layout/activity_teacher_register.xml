@@ -101,12 +101,12 @@
             </androidx.cardview.widget.CardView>
 
             <ScrollView
-                android:layout_marginBottom="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/register_btn"
                 android:layout_below="@id/card"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -147,41 +147,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="text" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
 
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:hint="Date of birth"
-                        app:boxStrokeColor="@color/purple_500"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/date_of_birth"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:hint="Mobile Number"
-                        app:boxStrokeColor="@color/purple_500"
-                        app:endIconMode="clear_text">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/mobile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="phone" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,13 +175,85 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:hint="Password"
+                        app:boxStrokeColor="@color/purple_500"
+                        app:endIconMode="password_toggle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:hint="Date of birth"
+                        app:boxStrokeColor="@color/purple_500"
+                        app:endIconMode="clear_text">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/date_of_birth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:hint="Mobile Number"
+                        app:boxStrokeColor="@color/purple_500"
+                        app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:hint="  Gender"
                         app:boxStrokeColor="@color/purple_500"
                         app:endIconMode="dropdown_menu">
 
                         <AutoCompleteTextView
                             android:id="@+id/gender"
-                            android:paddingLeft="8dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:paddingLeft="8dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:hint="Nationality"
+                        app:boxStrokeColor="@color/purple_500"
+                        app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nationality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text" />
@@ -268,12 +306,12 @@
                         app:boxStrokeColor="@color/purple_500"
                         app:endIconMode="dropdown_menu">
 
-                        <AutoCompleteTextView
+                        <MultiAutoCompleteTextView
                             android:id="@+id/name_of_course"
-                            android:paddingLeft="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:paddingLeft="8dp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -285,13 +323,15 @@
                         android:layout_marginRight="10dp"
                         android:hint="Education"
                         app:boxStrokeColor="@color/purple_500"
-                        app:endIconMode="clear_text">
+                        app:endIconMode="dropdown_menu">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <MultiAutoCompleteTextView
                             android:id="@+id/education"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:paddingLeft="8dp"
+                            android:completionThreshold="1"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -313,89 +353,54 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:hint="GPA/Result"
-                        app:boxStrokeColor="@color/purple_500"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/result"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:hint="Password"
-                        app:boxStrokeColor="@color/purple_500"
-                        app:endIconMode="password_toggle">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="Upload NID/Birth certificate"
                             android:fontFamily="@font/roboto"
+                            android:text="Upload NID/Birth certificate"
                             android:textColor="@color/black_app"
-                            android:textSize="20dp"
-                             />
+                            android:textSize="20dp" />
 
                         <ImageView
                             android:id="@+id/nid_birth"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="7dp"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginTop="7dp"
                             android:src="@drawable/gallery" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="15dp"
+                            android:fontFamily="@font/roboto"
                             android:text="Upload recent photo"
                             android:textColor="@color/black_app"
-                            android:textSize="20dp"
-                            android:fontFamily="@font/roboto"
-                             />
+                            android:textSize="20dp" />
 
                         <ImageView
                             android:id="@+id/photo"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="7dp"
-                            android:layout_gravity="center"
                             android:src="@drawable/gallery" />
                     </LinearLayout>
 
@@ -403,33 +408,27 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="15dp"
-                            android:text="Upload latest education certificate"
                             android:fontFamily="@font/roboto"
+                            android:text="Upload latest education certificate"
                             android:textColor="@color/black_app"
-                            android:textSize="20dp"
-                            />
+                            android:textSize="20dp" />
 
                         <ImageView
                             android:id="@+id/certificate"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_marginTop="7dp"
-                            android:layout_marginLeft="10dp"
                             android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="7dp"
                             android:src="@drawable/gallery" />
                     </LinearLayout>
-
-
-
-
-
-
 
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -438,13 +437,13 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@id/login_txt"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/btn_back"
                         android:text="Register"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="20dp"
-                        android:layout_marginTop="20dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -453,14 +452,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/roboto"
                         android:text="Already have an account! Login?"
                         android:textColor="@color/black_app"
-                        android:fontFamily="@font/roboto"
-                        android:layout_gravity="end"
                         android:textSize="16dp"
                         android:textStyle="normal" />
 

@@ -29,11 +29,11 @@ public class StudentLoginActivity extends AppCompatActivity {
     TextInputEditText emailEdit,passwordEdit;
     TextView create_account_txt;
 
-    FirebaseAuth firebaseAuth;
+
 
     ProgressDialog progressDialog;
 
-    FirebaseUser firebaseUser;
+
 
     Toolbar toolbar;
 
@@ -48,9 +48,9 @@ public class StudentLoginActivity extends AppCompatActivity {
         emailEdit = findViewById(R.id.email);
         passwordEdit = findViewById(R.id.password);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
 
 
         toolbar = findViewById(R.id.student_log_toolbar);
@@ -102,25 +102,7 @@ public class StudentLoginActivity extends AppCompatActivity {
                 } else {
                     progressDialog.show();
 
-                    // signin with email & pass
-                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if (task.isSuccessful()) {
-                                startActivity(new Intent(StudentLoginActivity.this, DashboardActivity.class));
-                                progressDialog.dismiss();
-                                finish();
-
-
-                            } else {
-                                progressDialog.dismiss();
-                                Log.i("TAG", "Error is : " + task.getException().getMessage());
-                                ShowError(task.getException().getMessage());
-                            }
-
-                        }
-                    });
                 }
 
             }
